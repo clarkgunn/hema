@@ -1,0 +1,17 @@
+---
+const { position } = Astro.props;
+---
+
+<section class="quadrant">
+  <h2>{position}</h2>
+</section>
+
+<style>
+  section {
+    color: transparent;
+  }
+
+  .active {
+    background: lime;
+  }
+</style>
