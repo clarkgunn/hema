@@ -1,60 +1,56 @@
 ---
+import { register } from 'swiper/element/bundle';
 import Layout from '../layouts/Layout.astro';
 import Quadrant from '../components/Quadrant.astro';
+
+register();
 ---
 
 <Layout title="Welcome to Astro.">
-  <main>
-    <Quadrant position="top left" />
-    <Quadrant position="top right" />
-    <Quadrant position="bottom left" />
-    <Quadrant position="bottom right" />
+  <main id="app">
+    <Quadrant position="top left">2</Quadrant>
+    <Quadrant position="top right">1</Quadrant>
+    <Quadrant position="bottom left">3</Quadrant>
+    <Quadrant position="bottom right">4</Quadrant>
   </main>
 </Layout>
 
 <script>
-  document.addEventListener(
-    'keydown',
-    (e) => {
-      if (e.keyCode === 13) {
-        toggleFullScreen();
-      }
-    },
-    false
-  );
-
-  function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
+  const actions = ['attack', 'defend'];
 
   function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   function queueNext() {
+    if (
+      document.querySelectorAll('.attack').length > 1 ||
+      document.querySelectorAll('.defend').length > 1
+    ) {
+      return;
+    }
+
     const quadrants = document.querySelectorAll('.quadrant');
     const newActive = quadrants[Math.floor(Math.random() * quadrants.length)];
-
-    newActive.classList.add('active');
+    let action = actions[Math.floor(Math.random() * actions.length)];
+    newActive.classList.add(action);
 
     setTimeout(() => {
-      newActive.classList.remove('active');
-    }, 1000);
+      newActive.classList.remove(action);
+    }, randomIntFromInterval(1000, 2000));
   }
 
   alert(
-    'Seizure warning: Page contains bright green sections flashing on a black background.'
+    'Seizure warning: Page contains bright green and red sections flashing on a black background.'
   );
-  setInterval(queueNext, randomIntFromInterval(1500, 3000));
+
+  setInterval(queueNext, randomIntFromInterval(500, 3000));
 </script>
 
 <style>
   body {
     margin: 0;
+    padding: 0;
   }
 
   main {

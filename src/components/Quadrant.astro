@@ -3,15 +3,30 @@ const { position } = Astro.props;
 ---
 
 <section class="quadrant">
-  <h2>{position}</h2>
+  <slot />
 </section>
 
 <style>
   section {
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 8rem;
+  }
+
+  section.active {
+    color: black;
+  }
+
+  section h2 {
     color: transparent;
   }
 
-  .active {
+  .attack {
     background: lime;
+  }
+
+  .defend {
+    background: red;
   }
 </style>
