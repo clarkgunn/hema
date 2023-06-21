@@ -16,35 +16,31 @@ register();
 </Layout>
 
 <script>
-  const actions = ['attack', 'defend'];
+  const actions = ['attack', 'attack', 'attack', 'defend', 'defend'];
 
   function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   function queueNext() {
-    if (
-      document.querySelectorAll('.attack').length > 1 ||
-      document.querySelectorAll('.defend').length > 1
-    ) {
-      return;
-    }
-
     const quadrants = document.querySelectorAll('.quadrant');
+    quadrants.forEach((quadrant) => {
+      quadrant.classList.remove('attack', 'defend');
+    });
     const newActive = quadrants[Math.floor(Math.random() * quadrants.length)];
     let action = actions[Math.floor(Math.random() * actions.length)];
     newActive.classList.add(action);
 
     setTimeout(() => {
       newActive.classList.remove(action);
-    }, randomIntFromInterval(1000, 2000));
+    }, 1000);
   }
 
   alert(
     'Seizure warning: Page contains bright green and red sections flashing on a black background.'
   );
 
-  setInterval(queueNext, randomIntFromInterval(500, 3000));
+  setInterval(queueNext, randomIntFromInterval(1000, 3000));
 </script>
 
 <style>
