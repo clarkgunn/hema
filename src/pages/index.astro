@@ -16,7 +16,9 @@ register();
 </Layout>
 
 <script>
-  const actions = ['attack', 'attack', 'attack', 'defend', 'defend'];
+  const actions = ['attack', 'attack', 'defend'];
+  let timer = 1500;
+  let timerId;
 
   function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -33,14 +35,18 @@ register();
 
     setTimeout(() => {
       newActive.classList.remove(action);
-    }, 1000);
+    }, 1500);
+
+    timer = randomIntFromInterval(2000, 5000);
+    clearInterval(timerId);
+    timerId = setInterval(queueNext, timer);
   }
 
   alert(
     'Seizure warning: Page contains bright green and red sections flashing on a black background.'
   );
 
-  setInterval(queueNext, randomIntFromInterval(1000, 3000));
+  timerId = setInterval(queueNext, timer);
 </script>
 
 <style>
